@@ -15,4 +15,17 @@ export const credConfig = {
     filterFunction: txFilter_Standard,
     transactionCondition: (txs: any[]) => txs.length > 0,
   },
+  2: {
+    title: 'Buy Wearables on Sofamon',
+    credType: 'basic',
+    apiChoice: 'etherscan',
+    apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
+    contractAddress: '0xc32dF201476BB79318C32fd696b2CcDCc5F9A909',
+    methodId: '0x6cbef461',
+    network: 'basechain',
+    startBlock: '0',
+    endBlock: 'latest',
+    filterFunction: txFilter_Standard,
+    transactionCondition: (txs: any[]) => txs.length > 0,
+  },
 };
