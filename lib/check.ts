@@ -1,7 +1,7 @@
 import { http, createPublicClient, Chain, PublicClient } from 'viem';
 import { credConfig } from './creds';
 import { getTransactions } from './transactionUtils';
-import { mainnet } from 'viem/chains';
+import { base } from 'viem/chains';
 
 export async function check_cred(address: string, id: number): Promise<[boolean, string]> {
   const config = credConfig[id];
@@ -27,7 +27,7 @@ export async function check_cred(address: string, id: number): Promise<[boolean,
       config.endBlock,
       config.filterFunction,
     );
-    return handleTransactionResult(config, txs);
+    return handleTransactionResult(config, txs, check_address);
   } else {
     throw new Error(`Invalid API choice: ${config.apiChoice}`);
   }
@@ -36,9 +36,9 @@ export async function check_cred(address: string, id: number): Promise<[boolean,
 async function createPublicClientForNetwork(network: string): Promise<PublicClient> {
   let chain: Chain;
   let rpc: string;
-  if (network === 'mainnet') {
-    chain = mainnet;
-    rpc = 'https://eth.llamarpc.com';
+  if (network === 'basechain') {
+    chain = base;
+    rpc = 'https://base-rpc.publicnode.com';
   } else {
     throw new Error(`Invalid network: ${network}`);
   }
@@ -77,9 +77,9 @@ function handleContractCallResult(config: any, contractCallResult: any): [boolea
   }
 }
 
-function handleTransactionResult(config: any, txs: any): [boolean, string] {
+function handleTransactionResult(config: any, txs: any, address: string): [boolean, string] {
   if (config.credType === 'advanced') {
-    const advancedResult = config.transactionCountCondition(txs);
+    const advancedResult = config.transactionCountCondition(txs, address);
     if (advancedResult === undefined) {
       throw new Error('advanced cred returned undefined');
     }

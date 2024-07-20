@@ -9,6 +9,13 @@ export const txFilter_Standard = (tx: GeneralTxItem, contractAddress: string, me
   return false;
 };
 
+export const txFilter_Contract = (tx: GeneralTxItem, contractAddress: string): boolean => {
+  if (tx.to.toLowerCase() === contractAddress.toLowerCase()) {
+    return true;
+  }
+  return false;
+};
+
 export const txFilter_Any = (tx: GeneralTxItem): boolean => {
   return true;
 };
