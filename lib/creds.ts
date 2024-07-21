@@ -334,4 +334,20 @@ export const credConfig = {
     filterFunction: txFilter_Standard,
     transactionCondition: (txs: any[]) => txs.length > 0,
   },
+  20: {
+    title: 'Contract Creator on Base',
+    credType: 'basic',
+    apiChoice: 'etherscan',
+    apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
+    contractAddress: 'any',
+    methodId: 'any',
+    network: 'basechain',
+    startBlock: '0',
+    endBlock: 'latest',
+    filterFunction: txFilter_Any,
+    transactionCondition: (txs: any[]) => {
+      const contractCreationTxs = txs.filter((tx) => tx.to === '');
+      return contractCreationTxs.length > 0;
+    },
+  },
 };

@@ -161,6 +161,14 @@ describe('check_cred', () => {
       },
       expectedDataCheck: (data: string) => data === '',
     },
+    20: {
+      title: credConfig[20].title,
+      addresses: {
+        valid: '0x6D83cac25CfaCdC7035Bed947B92b64e6a8B8090',
+        invalid: '0x32B8E1AE0af3F8f335F59A191617aB7A0885f6a0',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
   };
 
   Object.entries(testCases).forEach(([id, { title, addresses, expectedDataCheck }]) => {
