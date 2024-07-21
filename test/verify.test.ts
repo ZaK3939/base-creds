@@ -65,6 +65,54 @@ describe('check_cred', () => {
       },
       expectedDataCheck: (data: string) => data === '',
     },
+    8: {
+      title: credConfig[8].title,
+      addresses: {
+        valid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+        invalid: '0x0987654321098765432109876543210987654321',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
+    9: {
+      title: credConfig[9].title,
+      addresses: {
+        valid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+        invalid: '0x0987654321098765432109876543210987654321',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
+    10: {
+      title: credConfig[10].title,
+      addresses: {
+        valid: '0x623d931AF4aC74CA4ED98B73f0c6b1eADE9E02e9',
+        invalid: '0x0987654321098765432109876543210987654321',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
+    11: {
+      title: credConfig[11].title,
+      addresses: {
+        valid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+        invalid: '0x0987654321098765432109876543210987654321',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
+    12: {
+      title: credConfig[12].title,
+      addresses: {
+        valid: '0x956fD5BA28076f78dA4C590D7E48AAf8b738Fb8a',
+        invalid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
+    13: {
+      title: credConfig[13].title,
+      addresses: {
+        valid: '0x82D1791073BbC08792F8e4f7764d58A1fC6eE8B2',
+        invalid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+      },
+      expectedDataCheck: (data: string) => data === '',
+    },
   };
 
   Object.entries(testCases).forEach(([id, { title, addresses, expectedDataCheck }]) => {
