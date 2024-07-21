@@ -13,6 +13,7 @@ export const credConfig = {
     startBlock: '0',
     endBlock: 'latest',
     filterFunction: txFilter_Any,
+    mintEligibility: (result: number) => result > 0,
     transactionCountCondition: (txs: any[], address: string) =>
       txs.filter((tx) => tx.from.toLowerCase() === address.toLowerCase()).length,
   },
@@ -216,5 +217,69 @@ export const credConfig = {
     endBlock: 'latest',
     filterFunction: txFilter_Standard,
     transactionCondition: (txs: any[]) => txs.length > 0,
+  },
+  14: {
+    title: 'Holder of Brett Token',
+    credType: 'advanced',
+    apiChoice: 'contractCall',
+    apiKeyOrUrl: '',
+    contractAddress: '0x532f27101965dd16442E59d40670FaF5eBB142E4',
+    functionName: 'balanceOf',
+    abi: [
+      {
+        name: 'balanceOf',
+        type: 'function',
+        inputs: [
+          {
+            name: 'account',
+            type: 'address',
+          },
+        ],
+        outputs: [
+          {
+            name: '',
+            type: 'uint256',
+          },
+        ],
+        stateMutability: 'view',
+      },
+    ],
+    network: 'basechain',
+    mintEligibility: (result: bigint) => result > BigInt(0),
+    contractCallCondition: (result: bigint) => {
+      result != BigInt(0) ? result : '';
+    },
+  },
+  15: {
+    title: 'Holder of Higher Token',
+    credType: 'advanced',
+    apiChoice: 'contractCall',
+    apiKeyOrUrl: '',
+    contractAddress: '0x0578d8a44db98b23bf096a382e016e29a5ce0ffe',
+    functionName: 'balanceOf',
+    abi: [
+      {
+        name: 'balanceOf',
+        type: 'function',
+        inputs: [
+          {
+            name: 'account',
+            type: 'address',
+          },
+        ],
+        outputs: [
+          {
+            name: '',
+            type: 'uint256',
+          },
+        ],
+        stateMutability: 'view',
+      },
+    ],
+    network: 'basechain',
+    mintEligibility: (result: bigint) => result > BigInt(0),
+    contractCallCondition: (result: bigint) => {
+      result != BigInt(0) ? result : '';
+    },
   },
 };

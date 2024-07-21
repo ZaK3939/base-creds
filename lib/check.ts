@@ -66,10 +66,16 @@ async function callContract(publicClient: PublicClient, config: any, check_addre
 
 function handleContractCallResult(config: any, contractCallResult: any): [boolean, string] {
   if (config.credType === 'advanced') {
+    let mintEligibility: boolean;
     if (contractCallResult === undefined) {
       throw new Error('advanced cred returned undefined');
     }
-    return [true, contractCallResult.toString()];
+    // check condition and decide mint eligiblity
+    mintEligibility = config.mintEligibility(contractCallResult);
+    if (mintEligibility === false) {
+      return [mintEligibility, ''];
+    }
+    return [mintEligibility, contractCallResult.toString()];
   } else if (config.credType === 'basic') {
     return [config.contractCallCondition(contractCallResult), ''];
   } else {

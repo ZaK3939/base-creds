@@ -113,6 +113,22 @@ describe('check_cred', () => {
       },
       expectedDataCheck: (data: string) => data === '',
     },
+    14: {
+      title: credConfig[14].title,
+      addresses: {
+        valid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+        invalid: '0x6D83cac25CfaCdC7035Bed947B92b64e6a8B8090',
+      },
+      expectedDataCheck: (data: string) => data === '2470071086074148210258',
+    },
+    15: {
+      title: credConfig[15].title,
+      addresses: {
+        valid: '0x0B3CF56E7dF3BB3Fb7201fFcD96d279b05DDd2E3',
+        invalid: '0x6D83cac25CfaCdC7035Bed947B92b64e6a8B8090',
+      },
+      expectedDataCheck: (data: string) => data === '33292547162150163023924134',
+    },
   };
 
   Object.entries(testCases).forEach(([id, { title, addresses, expectedDataCheck }]) => {
