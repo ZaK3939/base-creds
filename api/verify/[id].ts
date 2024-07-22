@@ -24,7 +24,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const [mint_eligibility, data] = await check_cred(address as Address, numericId);
     console.log(`Cred check result for ID ${numericId}: ${mint_eligibility}`);
 
-    const signature = await create_signature(address as Address, mint_eligibility, numericId.toString());
+    const signature = await create_signature(address as Address, mint_eligibility, data);
     return res.status(200).json({ mint_eligibility, signature, data });
   } catch (error) {
     console.error('Error in verify:', error);
