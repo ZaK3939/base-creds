@@ -41,7 +41,6 @@ describe('create_signature', function () {
     ];
 
     const hashBuff = keccak256(toBytes(encodeAbiParameters(parseAbiParameters(typesArray), valueArray)));
-    console.log('publicKey', publicKey);
     expect(
       extractPublicKey({
         data: hashBuff,
