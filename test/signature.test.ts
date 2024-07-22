@@ -16,6 +16,15 @@ describe('create_signature', function () {
     expect(signature).toMatch(/^0x[a-f0-9]{128}$/);
   });
 
+  it('should sign a message correctly', async function () {
+    const address = '0x5cd18da4c84758319c8e1c228b48725f5e4a3506';
+    const mint_eligibility = true;
+    const data = '44';
+
+    const signature = await create_signature(address, mint_eligibility, data);
+    expect(signature).toMatch(/^0x[a-f0-9]{128}$/);
+  });
+
   it('should recover the public key from a signature', async () => {
     const address = '0x1234567890123456789012345678901234567890';
     const mint_eligibility = true;
@@ -32,6 +41,7 @@ describe('create_signature', function () {
     ];
 
     const hashBuff = keccak256(toBytes(encodeAbiParameters(parseAbiParameters(typesArray), valueArray)));
+    console.log('publicKey', publicKey);
     expect(
       extractPublicKey({
         data: hashBuff,

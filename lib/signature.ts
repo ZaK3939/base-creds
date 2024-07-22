@@ -28,7 +28,6 @@ export async function create_signature(address: Address, mint_eligibility: boole
 
     // Sign the hash message using the private key
     // The sign function returns an object with r, s, and v components of the signature
-
     let sBigInt = BigInt(s);
     if (v !== BigInt(27)) {
       // Check if the v value is not equal to 27
@@ -39,10 +38,10 @@ export async function create_signature(address: Address, mint_eligibility: boole
       // This modification is equivalent to replacing s with n - s, where n is the curve order
     }
 
-    const sHex = toHex(sBigInt);
-    // Convert the modified s value to its hexadecimal representation
+    const rHex = r.slice(2);
+    const sHex = toHex(sBigInt).slice(2).padStart(64, '0');
 
-    const signature = `0x${r.slice(2)}${sHex.slice(2)}` as Hex;
+    const signature = `0x${rHex}${sHex}` as Hex;
     // Construct the final signature by concatenating the r and modified s values in hexadecimal format
     // The resulting signature is prefixed with "0x" and cast as a Hex type
     return signature;
