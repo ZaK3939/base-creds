@@ -1,4 +1,4 @@
-import { Hex, encodeAbiParameters, keccak256, parseAbiParameters, toBytes, toHex } from 'viem';
+import { encodeAbiParameters, keccak256, parseAbiParameters, toBytes, toHex } from 'viem';
 import { create_signature } from '../lib/signature';
 import { bytesToHex, privateToPublic } from '@ethereumjs/util';
 import { extractPublicKey } from '@metamask/eth-sig-util';
@@ -41,11 +41,8 @@ describe('create_signature', function () {
     ];
 
     const hashBuff = keccak256(toBytes(encodeAbiParameters(parseAbiParameters(typesArray), valueArray)));
-    expect(
-      extractPublicKey({
-        data: hashBuff,
-        signature,
-      }),
-    ).toBe(publicKey);
+    const expected = extractPublicKey({ data: hashBuff, signature });
+    console.log(`Expected: ${expected}`);
+    expect(expected).toBe(publicKey);
   });
 });

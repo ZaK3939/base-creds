@@ -4,7 +4,7 @@ import { txFilter_Any, txFilter_Contract, txFilter_Standard } from './filter';
 export const credConfig = {
   0: {
     title: 'Number of transactions on Basechain',
-    credType: 'advanced',
+    credType: 'ADVANCED',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: 'any',
@@ -19,7 +19,7 @@ export const credConfig = {
   },
   1: {
     title: 'Mint a brush to save your art on the canvas',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xD68fe5b53e7E1AbeB5A4d0A6660667791f39263a',
@@ -32,7 +32,7 @@ export const credConfig = {
   },
   2: {
     title: 'Buy Wearables on Sofamon',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xc32dF201476BB79318C32fd696b2CcDCc5F9A909',
@@ -45,7 +45,7 @@ export const credConfig = {
   },
   3: {
     title: 'More than 10 transactions with Frene pet',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x0e22B5f3E11944578b37ED04F5312Dfc246f443C',
@@ -58,7 +58,7 @@ export const credConfig = {
   },
   4: {
     title: 'Submit Result on Speedtracer',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xCD45E55DB12E9CA3E82370F5D0c5C6876bF6f466',
@@ -71,7 +71,7 @@ export const credConfig = {
   },
   5: {
     title: 'Create on chain Activity on DOT',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x7b5673B598A71d27a56781271eC5fa05DE216df0',
@@ -84,7 +84,7 @@ export const credConfig = {
   },
   6: {
     title: 'Holder of a Vrbs',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'contractCall',
     apiKeyOrUrl: '',
     contractAddress: '0x9ea7fd1B8823a271BEC99b205B6c0C56d7C3eAe9',
@@ -113,7 +113,7 @@ export const credConfig = {
   },
   7: {
     title: 'Create and Mint on paragraph.xyz',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x9Bf9D0D88C1A835F1052Ef0FBa325b35bBea127a',
@@ -126,7 +126,7 @@ export const credConfig = {
   },
   8: {
     title: 'Create Collection on Zora (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x777777C338d93e2C7adf08D102d45CA7CC4Ed021',
@@ -139,7 +139,7 @@ export const credConfig = {
   },
   9: {
     title: 'Execute Swap on Uniswap (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x3fC91A3afd70395Cd496C647d5a6CC9D4B2b7FAD', // Uniswap Universal Router on Base
@@ -152,7 +152,7 @@ export const credConfig = {
   },
   10: {
     title: 'Deposit ETH to Seamless and leverage',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x5Ed6167232b937B0A5C84b49031139F405C09c8A',
@@ -165,7 +165,7 @@ export const credConfig = {
   },
   11: {
     title: 'Deposit USDC in PoolTogether (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'contractCall',
     apiKeyOrUrl: '',
     contractAddress: '0x7f5C2b379b88499aC2B997Db583f8079503f25b9',
@@ -194,7 +194,7 @@ export const credConfig = {
   },
   12: {
     title: 'Mint bsdETH in Reserve Protocol (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xe811b62AB97d9370cE2e25F9ceBC904522b81FE1', // bsdETH Token contract on Base
@@ -207,7 +207,7 @@ export const credConfig = {
   },
   13: {
     title: 'Add Liquidity on Aerodrome (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xcF77a3Ba9A5CA399B7c97c74d54e5b1Beb874E43', // Aerodrome Router contract on Base
@@ -220,7 +220,7 @@ export const credConfig = {
   },
   14: {
     title: 'Holder of Brett Token',
-    credType: 'advanced',
+    credType: 'ADVANCED',
     apiChoice: 'contractCall',
     apiKeyOrUrl: '',
     contractAddress: '0x532f27101965dd16442E59d40670FaF5eBB142E4',
@@ -252,7 +252,7 @@ export const credConfig = {
   },
   15: {
     title: 'Holder of Higher Token',
-    credType: 'advanced',
+    credType: 'ADVANCED',
     apiChoice: 'contractCall',
     apiKeyOrUrl: '',
     contractAddress: '0x0578d8a44db98b23bf096a382e016e29a5ce0ffe',
@@ -284,7 +284,7 @@ export const credConfig = {
   },
   16: {
     title: 'Deposit USDC in Moonwell Flagship (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xc1256Ae5FF1cf2719D4937adb3bbCCab2E00A2Ca',
@@ -297,7 +297,7 @@ export const credConfig = {
   },
   17: {
     title: 'Create Leveraged Farming Position in Extra Finance (Base)',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xf9cFB8a62f50e10AdDE5Aa888B44cF01C5957055',
@@ -310,7 +310,7 @@ export const credConfig = {
   },
   18: {
     title: 'Place Bid on Yellow Collective',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x0aa23A7E112889C965010558803813710beCF263',
@@ -323,7 +323,7 @@ export const credConfig = {
   },
   19: {
     title: 'Mint Why Phi',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xc649989246FAa59bBefA7c65551cc4461E823320',
@@ -336,7 +336,7 @@ export const credConfig = {
   },
   20: {
     title: 'Contract Creator on Base',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: 'any',
@@ -352,7 +352,7 @@ export const credConfig = {
   },
   21: {
     title: 'Execute Trade on Avantis',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0x5FF292d70bA9cD9e7CCb313782811b3D7120535f',
@@ -365,7 +365,7 @@ export const credConfig = {
   },
   22: {
     title: 'Mint cgUSD on CYGNUS FINANCE',
-    credType: 'basic',
+    credType: 'BASIC',
     apiChoice: 'etherscan',
     apiKeyOrUrl: process.env.BASESCAN_API_KEY ?? '',
     contractAddress: '0xCa72827a3D211CfD8F6b00Ac98824872b72CAb49',

@@ -65,10 +65,10 @@ async function callContract(publicClient: PublicClient, config: any, check_addre
 }
 
 function handleContractCallResult(config: any, contractCallResult: any): [boolean, string] {
-  if (config.credType === 'advanced') {
+  if (config.credType === 'ADVANCED') {
     let mintEligibility: boolean;
     if (contractCallResult === undefined) {
-      throw new Error('advanced cred returned undefined');
+      throw new Error('ADVANCED cred returned undefined');
     }
     // check condition and decide mint eligiblity
     mintEligibility = config.mintEligibility(contractCallResult);
@@ -76,7 +76,7 @@ function handleContractCallResult(config: any, contractCallResult: any): [boolea
       return [mintEligibility, ''];
     }
     return [mintEligibility, contractCallResult.toString()];
-  } else if (config.credType === 'basic') {
+  } else if (config.credType === 'BASIC') {
     return [config.contractCallCondition(contractCallResult), ''];
   } else {
     return [false, ''];
@@ -84,13 +84,13 @@ function handleContractCallResult(config: any, contractCallResult: any): [boolea
 }
 
 function handleTransactionResult(config: any, txs: any, address: string): [boolean, string] {
-  if (config.credType === 'advanced') {
-    const advancedResult = config.transactionCountCondition(txs, address);
-    if (advancedResult === undefined) {
-      throw new Error('advanced cred returned undefined');
+  if (config.credType === 'ADVANCED') {
+    const ADVANCEDResult = config.transactionCountCondition(txs, address);
+    if (ADVANCEDResult === undefined) {
+      throw new Error('ADVANCED cred returned undefined');
     }
-    return [true, advancedResult.toString()];
-  } else if (config.credType === 'basic') {
+    return [true, ADVANCEDResult.toString()];
+  } else if (config.credType === 'BASIC') {
     return [config.transactionCondition(txs), ''];
   } else {
     return [false, ''];

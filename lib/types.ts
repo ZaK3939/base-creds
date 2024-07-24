@@ -94,3 +94,27 @@ export type AlchemyResponseForTxDetails = {
   id: number;
   result: AlchemyDetailTxItem;
 };
+export type CredType = 'BASIC' | 'ADVANCED';
+
+type Chain = { id: number };
+
+type BaseRequest = {
+  credType: CredType;
+  requirement: string;
+  imageData: string; // base64 encoded
+  verificationSource: string;
+  title?: string;
+  description?: string;
+  networks?: Chain['id'][];
+  project?: string;
+  tags?: string[];
+  relatedLinks?: string[];
+};
+
+export type SignatureRequest = BaseRequest & {
+  verificationType: 'SIGNATURE';
+  verifier: {
+    address: `0x${string}`;
+    endpoint: string;
+  };
+};

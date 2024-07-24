@@ -21,9 +21,10 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@vercel/node": "^3.1.6",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
-    "viem": "^2.13.5"
+    "viem": "^2.10.9"
   }
 }
