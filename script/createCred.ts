@@ -1,10 +1,28 @@
 import axios from 'axios';
-import { createPublicClient, http, createWalletClient, encodeFunctionData, Hex, Chain, Account, Address } from 'viem';
+import {
+  createPublicClient,
+  http,
+  createWalletClient,
+  encodeFunctionData,
+  Chain,
+  Account,
+  Address,
+  isAddress,
+  encodeAbiParameters,
+  parseAbiParameters,
+  keccak256,
+  toHex,
+  isHex,
+  toBytes,
+} from 'viem';
 import credContractAbi from './abi/cred';
 import { privateKeyToAccount } from 'viem/accounts';
+import { extractPublicKey } from '@metamask/eth-sig-util';
+import { pubToAddress } from '@ethereumjs/util';
 import { baseSepolia } from 'viem/chains';
 import { credConfig } from '../lib/creds';
-import { SignatureRequest, CredType } from '../lib/types';
+import { SignatureRequest, CredType, VerifierResponse } from '../lib/types';
+import { testCases } from './testCases';
 import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -15,7 +33,6 @@ const BASE_RPC_URL = process.env.BASE_RPC_URL || 'https://rpc.ankr.com/base_sepo
 const SIGNER_PRIVATE_KEY = process.env.SIGNER_PRIVATE_KEY;
 const CRED_CONTRACT_ADDRESS = process.env.CRED_CONTRACT_ADDRESS;
 const PHI_API_URL = process.env.PHI_API_URL || 'https://base-sepolia.terminal.phiprotocol.xyz/api/cred/84532';
-const VERIFIER_ADDRESS = process.env.VERIFIER_ADDRESS || '0x29c76e6ad8f28bb1004902578fb108c507be341b';
 const VERIFIER_URL = process.env.VERIFIER_URL || 'https://base-creds.vercel.app/api/verify/';
 
 if (!SIGNER_PRIVATE_KEY || !CRED_CONTRACT_ADDRESS || !BASE_RPC_URL) {
@@ -35,16 +52,56 @@ const publicClient = createPublicClient({
   transport: http(BASE_RPC_URL),
 });
 
+function isVerifierResponse(data: any): data is VerifierResponse {
+  return typeof data === 'object' && isHex(data.signature) && typeof data.mint_eligibility === 'boolean';
+}
+
 async function getSignature(configId: number): Promise<{ signCreateData: string; signature: string }> {
   const config = credConfig[configId];
   if (!config) {
     throw new Error(`Config not found for ID: ${configId}`);
+  }
+  const testCase = testCases[configId];
+  if (!testCase) {
+    throw new Error(`Test case not found for ID: ${configId}`);
   }
 
   // Load and convert image to Base64
   const imagePath = path.join(process.cwd(), 'images', `${configId}.png`);
   const imageBuffer = fs.readFileSync(imagePath);
   const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+
+  // Use the valid address from the test case
+  const testAddress = testCase.addresses.valid;
+
+  // Fetch verifier info
+  const verifierEndpoint = `${VERIFIER_URL}${configId}?address=${testAddress}`;
+  const res = await fetch(verifierEndpoint);
+
+  if (!res.ok) {
+    const errorMessage = await res.text();
+    throw new Error(`Failed to fetch verifier info: ${errorMessage}`);
+  }
+
+  const schema = await res.json();
+  if (!isVerifierResponse(schema)) {
+    throw new Error('Invalid schema');
+  }
+
+  // Perform signature verification
+  const dataHex = toHex(schema.data || 0, { size: 32 });
+  const encodedData = encodeAbiParameters(parseAbiParameters('address, bool, bytes32'), [
+    testAddress,
+    schema.mint_eligibility,
+    dataHex,
+  ]);
+  const hashBuff = keccak256(toBytes(encodedData));
+  const publicKey = extractPublicKey({ data: hashBuff, signature: schema.signature });
+  const verifierAddress = toHex(pubToAddress(Buffer.from(publicKey.slice(2), 'hex')));
+  console.log('Verifier address:', verifierAddress);
+  if (!isAddress(verifierAddress)) {
+    throw new Error(`Invalid recovered verifier address: ${verifierAddress}`);
+  }
 
   const request: SignatureRequest = {
     credType: config.credType as CredType,
@@ -59,7 +116,7 @@ async function getSignature(configId: number): Promise<{ signCreateData: string;
     relatedLinks: config.relatedLinks,
     verificationType: 'SIGNATURE',
     verifier: {
-      address: VERIFIER_ADDRESS as `0x${string}`,
+      address: verifierAddress,
       endpoint: `${VERIFIER_URL}${configId}`,
     },
   };

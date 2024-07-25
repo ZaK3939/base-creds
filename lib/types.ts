@@ -1,3 +1,5 @@
+import { Hex } from 'viem';
+
 export type EtherscanFilter = (a: EtherscanTxItem) => boolean;
 
 export type GeneralTxItem = {
@@ -94,7 +96,9 @@ export type AlchemyResponseForTxDetails = {
   id: number;
   result: AlchemyDetailTxItem;
 };
+
 export type CredType = 'BASIC' | 'ADVANCED';
+export type VerificationType = 'MERKLE' | 'SIGNATURE';
 
 type Chain = { id: number };
 
@@ -117,4 +121,11 @@ export type SignatureRequest = BaseRequest & {
     address: `0x${string}`;
     endpoint: string;
   };
+};
+
+export type VerifierResponse = {
+  mint_eligibility: boolean;
+  signature: Hex;
+  data?: string;
+  dataFitsInBytes32?: boolean;
 };
