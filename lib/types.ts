@@ -1,4 +1,4 @@
-import { Hex } from 'viem';
+import { Chain, Hex } from 'viem';
 
 export type EtherscanFilter = (a: EtherscanTxItem) => boolean;
 
@@ -100,12 +100,10 @@ export type AlchemyResponseForTxDetails = {
 export type CredType = 'BASIC' | 'ADVANCED';
 export type VerificationType = 'MERKLE' | 'SIGNATURE';
 
-type Chain = { id: number };
-
-type BaseRequest = {
+export type BaseRequest = {
   credType: CredType;
   requirement: string;
-  imageData: string; // base64 encoded
+  imageData: string;
   verificationSource: string;
   title?: string;
   description?: string;
@@ -123,9 +121,23 @@ export type SignatureRequest = BaseRequest & {
   };
 };
 
+export type MerkleRequest = BaseRequest & {
+  verificationType: 'MERKLE';
+  addressList: string;
+};
+
 export type VerifierResponse = {
+  signature: string;
   mint_eligibility: boolean;
-  signature: Hex;
-  data?: string;
-  dataFitsInBytes32?: boolean;
+  data?: string | number;
+};
+
+export type CredConfig = {
+  title: string;
+  description: string;
+  credType: CredType;
+  verificationType: VerificationType;
+  project: string;
+  tags: string[];
+  relatedLinks: string[];
 };

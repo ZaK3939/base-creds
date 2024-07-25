@@ -4,7 +4,8 @@ import { bytesToHex, privateToPublic } from '@ethereumjs/util';
 import { extractPublicKey } from '@metamask/eth-sig-util';
 require('dotenv').config();
 
-const privateKey = Buffer.from('4af1bceebf7f3634ec3cff8a2c38e51178d5d4ce585c52d6043e5e2cc3418bb0', 'hex');
+// const privateKey = Buffer.from('4af1bceebf7f3634ec3cff8a2c38e51178d5d4ce585c52d6043e5e2cc3418bb0', 'hex');
+const privateKey = Buffer.from(process.env.SIGNER_PRIVATE_KEY?.slice(2) as string, 'hex');
 
 describe('create_signature', function () {
   it('should sign a message correctly', async function () {
@@ -42,7 +43,7 @@ describe('create_signature', function () {
 
     const hashBuff = keccak256(toBytes(encodeAbiParameters(parseAbiParameters(typesArray), valueArray)));
     const expected = extractPublicKey({ data: hashBuff, signature });
-    console.log(`Expected: ${expected}`);
+
     expect(expected).toBe(publicKey);
   });
 });

@@ -1,5 +1,5 @@
 // testCases.ts
-import { credConfig } from '../lib/creds';
+import { credConfig } from '../../lib/creds';
 
 export const testCases = {
   0: {
@@ -180,6 +180,14 @@ export const testCases = {
     title: credConfig[22].title,
     addresses: {
       valid: '0x5037e7747fAa78fc0ECF8DFC526DcD19f73076ce',
+      invalid: '0x0B3CF56E7dF3BB3Fb7201fFcD96d279b05DDd2E3',
+    },
+    expectedDataCheck: (data: string) => data === '',
+  },
+  23: {
+    title: credConfig[23].title,
+    addresses: {
+      valid: '0xf0e5e56b6a727d8ebd88a582985ff2bee74b6723',
       invalid: '0x0B3CF56E7dF3BB3Fb7201fFcD96d279b05DDd2E3',
     },
     expectedDataCheck: (data: string) => data === '',
