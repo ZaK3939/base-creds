@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export const setupDir = (kind: string): string => {
   const date = new Date();
-  const dateStr = `${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}}`;
+  const dateStr = `${date.getFullYear()}_${date.getMonth() + 1}_${date.getDate()}`;
   const artifactsDir = path.join(__dirname, '../artifacts');
   const cardsDir = path.join(artifactsDir, kind);
   const outputDir = path.join(cardsDir, dateStr);

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { encodeFunctionData, isAddress, Address, Hex } from 'viem';
-import fs from 'fs';
 import path from 'path';
 import { credConfig } from '../../lib/creds';
 import { testCases } from './testCases';
@@ -8,7 +7,7 @@ import { SignatureRequest, CredType, MerkleRequest } from '../../lib/types';
 import { VERIFIER_URL, PHI_API_URL, publicClient, walletClient, CRED_CONTRACT_ADDRESS, account } from './config';
 import { verifySignature } from './utils/signature';
 import { fetchVerifierInfo } from './utils/verifier';
-import credContractAbi from '../abi/cred';
+import credContractAbi from './abi/cred';
 import { readCSVFile, readImageAsBase64 } from './utils/file';
 import { exportFromDune } from './utils/exportFromDune';
 
@@ -63,7 +62,10 @@ export async function createCredRequest(creator: Address, configId: number) {
       },
     };
 
-    const response = await axios.post<{ signCreateData: string; signature: string }>(PHI_API_URL, request);
+    const response = await axios.post<{ signCreateData: string; signature: string }>(
+      `${PHI_API_URL}/api/cred/84532`,
+      request,
+    );
     ({ signCreateData, signature } = response.data);
   } else if (config.verificationType === 'MERKLE') {
     if (config.apiChoice === 'dune') {

@@ -1,4 +1,4 @@
-import { Chain, Hex } from 'viem';
+import { Address, Chain, Hex } from 'viem';
 
 export type EtherscanFilter = (a: EtherscanTxItem) => boolean;
 
@@ -100,7 +100,7 @@ export type AlchemyResponseForTxDetails = {
 export type CredType = 'BASIC' | 'ADVANCED';
 export type VerificationType = 'MERKLE' | 'SIGNATURE';
 
-export type BaseRequest = {
+export type BaseCredRequest = {
   credType: CredType;
   requirement: string;
   imageData: string;
@@ -113,7 +113,7 @@ export type BaseRequest = {
   relatedLinks?: string[];
 };
 
-export type SignatureRequest = BaseRequest & {
+export type SignatureRequest = BaseCredRequest & {
   verificationType: 'SIGNATURE';
   verifier: {
     address: `0x${string}`;
@@ -121,7 +121,7 @@ export type SignatureRequest = BaseRequest & {
   };
 };
 
-export type MerkleRequest = BaseRequest & {
+export type MerkleRequest = BaseCredRequest & {
   verificationType: 'MERKLE';
   addressList: string;
 };
@@ -141,3 +141,37 @@ export type CredConfig = {
   tags: string[];
   relatedLinks: string[];
 };
+
+export type BaseArtRequest = {
+  title: string;
+  network: number;
+  artist: `0x${string}`;
+  receiver: `0x${string}`;
+  description?: string;
+  externalURL?: string;
+  start: number;
+  end: number;
+  maxSupply?: number;
+  price: number;
+  soulbound: boolean;
+};
+
+export type EligibleRequest = BaseArtRequest & {
+  imageData: string; // base64 encoded
+};
+export type NumericRequest = BaseArtRequest & {
+  endpoint: string;
+  previewInput: { address: string; data: string };
+};
+
+export type AddArtRequest = EligibleRequest | NumericRequest;
+
+export interface CreateArtSignature {
+  artist: Address;
+  receiver: Address;
+  endTime: bigint;
+  startTime: bigint;
+  maxSupply: bigint;
+  mintFee: bigint;
+  soulBounded: boolean;
+}
