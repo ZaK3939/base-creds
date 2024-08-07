@@ -154,6 +154,7 @@ export type BaseArtRequest = {
   maxSupply?: number;
   price: number;
   soulbound: boolean;
+  artType: ArtType;
 };
 
 export type EligibleRequest = BaseArtRequest & {
@@ -166,6 +167,7 @@ export type NumericRequest = BaseArtRequest & {
 
 export type AddArtRequest = EligibleRequest | NumericRequest;
 
+export type ArtType = 'IMAGE' | 'API_ENDPOINT';
 export interface CreateArtSignature {
   artist: Address;
   receiver: Address;

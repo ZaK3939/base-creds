@@ -10,6 +10,10 @@ import { readSvgAsBase64 } from './utils/file';
 const ARTIFACTS_DIR = path.join(process.cwd(), 'script', 'card-generator', 'artifacts');
 
 export async function createArt(credId: number, creator: Address) {
+  // if (credId > 23) {
+  //   credId = credId % 24;
+  // }
+
   let imageData: string;
 
   const cardDir = path.join(ARTIFACTS_DIR, 'frontCards', '2024_7_27');
@@ -35,12 +39,13 @@ export async function createArt(credId: number, creator: Address) {
     soulbound: false,
     receiver: creator,
     artist: creator,
+    artType: 'IMAGE',
   };
 
   console.log('Creating art:', artRequest);
   const endPoint = `${PHI_API_URL}/api/cred/84532/${credId}/art`;
   const response = await axios.post<{ sig: [Hex, Hex, CreateArtSignature] }>(endPoint, artRequest);
-
+  console.log('Art creation response:', response.data);
   const { sig } = response.data;
   const estimatedGas = await publicClient.estimateContractGas({
     address: PHI_FACTORY_ADDRESS as Address,

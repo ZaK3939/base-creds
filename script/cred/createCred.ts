@@ -24,6 +24,7 @@ export async function createCredRequest(creator: Address, configId: number) {
   const base64Image = await readImageAsBase64(configId);
 
   const baseRequest = {
+    sender: account.address,
     credType: config.credType as CredType,
     requirement: config.title,
     imageData: base64Image,
@@ -68,9 +69,10 @@ export async function createCredRequest(creator: Address, configId: number) {
     );
     ({ signCreateData, signature } = response.data);
   } else if (config.verificationType === 'MERKLE') {
-    if (config.apiChoice === 'dune') {
-      await exportFromDune(config.duneQueryId, config.fileName);
-    }
+    // Dune call
+    // if (config.apiChoice === 'dune') {
+    //   await exportFromDune(config.duneQueryId, config.fileName);
+    // }
     const addressListPath = path.join(process.cwd(), 'csv', `${configId}.csv`);
     const addressList = await readCSVFile(addressListPath);
 
@@ -80,11 +82,16 @@ export async function createCredRequest(creator: Address, configId: number) {
       addressList,
     };
 
-    const response = await axios.post<{ signCreateData: string; signature: string }>(PHI_API_URL, request);
+    const response = await axios.post<{ signCreateData: string; signature: string }>(
+      `${PHI_API_URL}/api/cred/84532`,
+      request,
+    );
+
     ({ signCreateData, signature } = response.data);
   } else {
     throw new Error(`Unsupported verification type: ${config.verificationType}`);
   }
+  console.log('Sign create data:', signCreateData);
 
   const signalRoyalty = 100;
   const unSignalRoyalty = 100;
@@ -125,12 +132,18 @@ export async function createCredRequest(creator: Address, configId: number) {
     gas: estimatedGas,
   });
 
-  console.log('Transaction hash:', hash);
-
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
 
   if (receipt.status === 'success') {
     console.log('Cred created successfully!');
+    let credId = await publicClient.readContract({
+      address: CRED_CONTRACT_ADDRESS as Address,
+      abi: credContractAbi,
+      functionName: 'credIdCounter',
+      args: [],
+    });
+    let createdId = Number(credId) - 1;
+    return createdId;
   } else {
     console.error('Cred creation failed.');
   }
